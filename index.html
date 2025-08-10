@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PKKMB 2025 Schedule</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .schedule-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        .date-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .institution {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .detail-section {
+            margin-bottom: 15px;
+        }
+        .detail-section h3 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .deadline {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        .progress {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .b-rte {
+            background-color: #9b59b6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jadwal PKKMB UNJ 2025</h1>
+    
+    <div class="schedule-container">
+        <div class="date-header">
+            <h2 id="current-date">7 Agu 2025</h2>
+            <span class="institution" id="current-institution">FT UNJ</span>
+        </div>
+        
+        <div class="detail-section">
+            <h3>Agenda</h3>
+            <p id="agenda">Briefing FT</p>
+        </div>
+        
+        <div class="detail-section">
+            <h3>Dresscode</h3>
+            <div id="dresscode">
+                <ul>
+                    <li><strong>Laki-laki:</strong> Batik lengan bebas + celana hitam</li>
+                    <li><strong>Perempuan:</strong> Batik + rok hitam + hijab (muslim)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="detail-section">
+            <h3>Barang Wajib</h3>
+            <ul id="items">
+                <li>Name tag plastik</li>
+                <li>Air mineral</li>
+                <li>Alat tulis</li>
+                <li>Payung/jas hujan</li>
+            </ul>
+        </div>
+        
+        <div id="deadline-container" style="display: none;">
+            <h3>Deadline</h3>
+            <p class="deadline" id="deadline"></p>
+        </div>
+    </div>
+    
+    <div class="nav-buttons">
+        <button id="prev-btn" disabled>Sebelumnya</button>
+        <span class="progress"><span id="current-index">1</span>/<span id="total-items">16</span></span>
+        <button id="next-btn">Berikutnya</button>
+    </div>
+
+    <script>
+        // Complete schedule data
+        const schedule = [
+            {
+                date: '7 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: 'Briefing FT',
+                dresscode: [
+                    'Laki-laki: Batik lengan bebas + celana hitam',
+                    'Perempuan: Batik + rok hitam + hijab (muslim)'
+                ],
+                items: [
+                    'Name tag plastik',
+                    'Air mineral',
+                    'Alat tulis',
+                    'Payung/jas hujan'
+                ],
+                deadline: ''
+            },
+            {
+                date: '10 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Twibbon FT (23:59 WIB)'
+            },
+            {
+                date: '11 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Follow IG Lembaga FT + kolase (23:59 WIB)'
+            },
+            {
+                date: '12-13 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: 'FT Tour',
+                dresscode: [
+                    'Laki-laki: Batik lengan panjang + slayer biru elektrik',
+                    'Perempuan: Batik lengan panjang + rok hitam + slayer biru elektrik'
+                ],
+                items: [
+                    'Sepatu & kaos kaki hitam',
+                    'Tote bag biru elektrik',
+                    'Bekal makan siang'
+                ],
+                deadline: 'tgl 13 video perkenalan'
+            },
+            {
+                date: '14 Agu 2025',
+                institution: 'B-RTE',
+                agenda: 'Briefing Pra PKKMB',
+                dresscode: [
+                    'Laki-laki: Batik lengan panjang + slayer biru tua',
+                    'Perempuan: Batik lengan panjang + rok hitam + slayer biru tua',
+                    'Rambut ≤1 cm (laki-laki)'
+                ],
+                items: [
+                    'Name tag laminating',
+                    'Air minum 1.5L',
+                    'Roti/makanan ringan',
+                    'Jas hujan ponco'
+                ],
+                deadline: ''
+            },
+            {
+                date: '15 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: 'IC FT',
+                dresscode: [
+                    'Same as FT Tour'
+                ],
+                items: [
+                    'Draft Buku Berdaya'
+                ],
+                deadline: ''
+            },
+            {
+                date: '16 Agu 2025',
+                institution: 'B-RTE',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Twibbon B-RTE (23:59 WIB)'
+            },
+            {
+                date: '17 Agu 2025',
+                institution: 'B-RTE',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: ''
+            },
+            {
+                date: '18 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Video Yel-Yel Tahap 2 (23:59 WIB)'
+            },
+            {
+                date: '20-21 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: 'PAS Day 1-2 FT',
+                dresscode: [
+                    'Laki-laki: Kemeja putih + slayer biru elektrik',
+                    'Perempuan: Kemeja putih + rok hitam + hijab hitam'
+                ],
+                items: [
+                    'Buku Berdaya (hari 2)',
+                    'Alat sholat'
+                ],
+                deadline: ''
+            },
+            {
+                date: '22 Agu 2025',
+                institution: 'B-RTE',
+                agenda: 'PAS Day 1 B-RTE',
+                dresscode: [
+                    'Laki-laki: Kemeja putih + slayer biru tua',
+                    'Perempuan: Kemeja putih + rok hitam + hijab hitam'
+                ],
+                items: [
+                    'Alat sholat',
+                    'Tote bag biru'
+                ],
+                deadline: ''
+            },
+            {
+                date: '23 Agu 2025',
+                institution: 'FT UNJ',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Posting Foto Kelompok (23:59 WIB)'
+            },
+            {
+                date: '24 Agu 2025',
+                institution: 'B-RTE',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Denah UNJ (kelompok) (23:59 WIB)'
+            },
+            {
+                date: '25 Agu 2025',
+                institution: 'B-RTE',
+                agenda: 'PAS Day 2 (Online)',
+                dresscode: [
+                    'Bebas rapi (kamera harus aktif)',
+                    'Virtual background resmi'
+                ],
+                items: [
+                    'Koneksi internet stabil'
+                ],
+                deadline: ''
+            },
+            {
+                date: '27 Agu 2025',
+                institution: 'B-RTE',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Video Yel-Yel Kelompok (23:59 WIB)'
+            },
+            {
+                date: '28 Agu 2025',
+                institution: 'B-RTE',
+                agenda: '-',
+                dresscode: [],
+                items: [],
+                deadline: 'Resume Kegiatan (tulis tangan) (23:59 WIB)'
+            }
+        ];
+
+        // Initialize variables
+        let currentIndex = 0;
+        const totalItems = schedule.length;
+        
+        // DOM elements
+        const dateElement = document.getElementById('current-date');
+        const institutionElement = document.getElementById('current-institution');
+        const agendaElement = document.getElementById('agenda');
+        const dresscodeElement = document.getElementById('dresscode');
+        const itemsElement = document.getElementById('items');
+        const deadlineElement = document.getElementById('deadline');
+        const deadlineContainer = document.getElementById('deadline-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentIndexElement = document.getElementById('current-index');
+        const totalItemsElement = document.getElementById('total-items');
+
+        // Set total items display
+        totalItemsElement.textContent = totalItems;
+
+        // Function to update display
+        function updateDisplay() {
+            const currentItem = schedule[currentIndex];
+            
+            dateElement.textContent = currentItem.date;
+            institutionElement.textContent = currentItem.institution;
+            institutionElement.className = 'institution ' + (currentItem.institution === 'B-RTE' ? 'b-rte' : '');
+            agendaElement.textContent = currentItem.agenda;
+            
+            // Update dresscode
+            dresscodeElement.innerHTML = '';
+            if (currentItem.dresscode.length > 0) {
+                const ul = document.createElement('ul');
+                currentItem.dresscode.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = item;
+                    ul.appendChild(li);
+                });
+                dresscodeElement.appendChild(ul);
+            }
+            
+            // Update items
+            itemsElement.innerHTML = '';
+            currentItem.items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                itemsElement.appendChild(li);
+            });
+            
+            // Update deadline
+            if (currentItem.deadline) {
+                deadlineElement.textContent = currentItem.deadline;
+                deadlineContainer.style.display = 'block';
+            } else {
+                deadlineContainer.style.display = 'none';
+            }
+            
+            // Update progress
+            currentIndexElement.textContent = currentIndex + 1;
+            
+            // Update buttons
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === totalItems - 1;
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateDisplay();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalItems - 1) {
+                currentIndex++;
+                updateDisplay();
+            }
+        });
+
+        // Initialize
+        updateDisplay();
+    </script>
+</body>
+</html>
